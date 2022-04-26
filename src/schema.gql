@@ -1,0 +1,71 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+input ArgsGroupInput {
+  name: String
+}
+
+input ArgsUserInput {
+  id: ID!
+}
+
+input CreateGroupInput {
+  name: String!
+}
+
+input CreateUserInput {
+  email: String!
+  groupName: String
+  parent: ArgsUserInput
+  password: String!
+}
+
+type GroupEntity {
+  id: ID!
+  name: String!
+  users: [UserEntity]
+}
+
+type Mutation {
+  createGroup(createGroup: CreateGroupInput!): GroupEntity!
+  createUser(createUser: CreateUserInput!): UserEntity!
+  removeGroup(id: String!): String!
+  removeUser(id: String!): String!
+  updateGroup(updateGroup: UpdateGroupInput!): GroupEntity!
+  updateUser(updateUser: UpdateUserInput!): UserEntity!
+}
+
+type Query {
+  getAllUsers: [UserEntity!]!
+  getGroupAll: [GroupEntity!]!
+  getGroupOne(id: String!): GroupEntity!
+  getOneUser(id: String!): UserEntity!
+  getTreeAllUsers: [UserEntity!]!
+  getTreeOneUser(id: String!): UserEntity!
+}
+
+input UpdateGroupInput {
+  id: ID!
+  name: String
+  users: [ArgsUserInput!]
+}
+
+input UpdateUserInput {
+  email: String
+  groups: [ArgsGroupInput!]
+  id: ID!
+  isActivated: Boolean
+  parent: ArgsUserInput
+  password: String
+}
+
+type UserEntity {
+  children: [UserEntity!]
+  email: String!
+  groups: [GroupEntity]
+  id: ID!
+  isActivated: Boolean
+  parent: UserEntity
+  password: String!
+}
